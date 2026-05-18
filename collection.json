@@ -1,0 +1,606 @@
+{
+  "info": {
+    "_postman_id": "437bda1e-85c1-4bd8-be4d-5bf756febcd9",
+    "name": "Api-Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "17338583",
+    "_collection_link": "https://go.postman.co/collection/17338583-437bda1e-85c1-4bd8-be4d-5bf756febcd9?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Sign-up",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Generate random email every time",
+                  "const randomNumber = Math.floor(Math.random() * 99999);",
+                  "const randomEmail = `testuser${randomNumber}@gmail.com`;",
+                  "const password = \"Aa123456789@!\";",
+                  "",
+                  "// Save to environment",
+                  "pm.environment.set(\"email\", randomEmail);",
+                  "pm.environment.set(\"password\", password);",
+                  "",
+                  "console.log(\"Generated Email:\", randomEmail);",
+                  "console.log(\"Password:\", password);",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// pm.test(\"Response status code is 400\", function () {",
+                  "//     pm.response.to.have.status(400);",
+                  "// });",
+                  "",
+                  "",
+                  "pm.test(\"Toke exsist in response for valid user\", function () {",
+                  " ",
+                  "  const json = pm.response.json();",
+                  "",
+                  "    pm.expect(json).to.have.property('token');",
+                  "    pm.expect(json.token).to.exist;",
+                  "",
+                  "})",
+                  "",
+                  "",
+                  "",
+                  "// pm.test(\"Response has an error field\", function () {",
+                  "//     const responseData = pm.response.json();",
+                  "    ",
+                  "//     pm.expect(responseData).to.be.an('object');",
+                  "//     pm.expect(responseData).to.have.property('error');",
+                  "// });",
+                  "",
+                  "",
+                  "// pm.test(\"Error message is a non-empty string\", function () {",
+                  "//     const responseData = pm.response.json();",
+                  "    ",
+                  "//     pm.expect(responseData).to.be.an('object');",
+                  "//     pm.expect(responseData.error).to.exist.and.to.be.a('string').and.to.have.lengthOf.above(0, \"Error message should not be empty\");",
+                  "// });",
+                  "",
+                  "",
+                  "pm.test(\"Response time is less than 200ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(200);",
+                  "});",
+                  "",
+                  "",
+                  "// pm.test(\"Response follows the expected JSON schema for error responses\", function () {",
+                  "//     const responseData = pm.response.json();",
+                  "",
+                  "//     pm.expect(responseData).to.be.an('object');",
+                  "//     pm.expect(responseData).to.have.property('error').that.is.a('string');",
+                  "// });",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en-US,en;q=0.9"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000"
+              },
+              {
+                "key": "Referer",
+                "value": "http://localhost:3000/signup"
+              },
+              {
+                "key": "Sec-Fetch-Dest",
+                "value": "empty"
+              },
+              {
+                "key": "Sec-Fetch-Mode",
+                "value": "cors"
+              },
+              {
+                "key": "Sec-Fetch-Site",
+                "value": "same-origin"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"macOS\""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{email}}\",\"password\": \"{{password}}\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/user/signup",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "user",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function() {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const json = pm.response.json();",
+                  "",
+                  "pm.environment.set(\"token\",json.token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en-US,en;q=0.9"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000"
+              },
+              {
+                "key": "Referer",
+                "value": "http://localhost:3000/login"
+              },
+              {
+                "key": "Sec-Fetch-Dest",
+                "value": "empty"
+              },
+              {
+                "key": "Sec-Fetch-Mode",
+                "value": "cors"
+              },
+              {
+                "key": "Sec-Fetch-Site",
+                "value": "same-origin"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"macOS\""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"{{email}}\",\"password\":\"{{password}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/user/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "WorkOut",
+      "item": [
+        {
+          "name": "Add_workout",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Pre-request script of Dashboard",
+                  "const token = pm.environment.get(\"token\");",
+                  "console.log(\"Token being used:\", token);",
+                  "",
+                  "// Example: if token is missing, stop the request",
+                  "if(!token) {",
+                  "    throw new Error(\"Token is missing! Run Login first\");",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.response.to.have.status(200);",
+                  "const json = pm.response.json();",
+                  "console.log(json);",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "pm.test(\"Response status code is 200\", function () {",
+                  "    pm.expect(pm.response.code).to.eql(200);",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Response time is less than 200ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(200);",
+                  "});",
+                  "",
+                  "",
+                  "// pm.test(\"Response matches the expected schema\", function () {",
+                  "//     const responseData = pm.response.json();",
+                  "",
+                  "//     pm.expect(responseData).to.be.an('object');",
+                  "//     pm.expect(responseData).to.have.all.keys('title', 'reps', 'load', '_id', 'createdAt', 'updatedAt', '__v');",
+                  "    ",
+                  "//     pm.expect(responseData.title).to.be.a('number');",
+                  "//     pm.expect(responseData.reps).to.be.a('number');",
+                  "//     pm.expect(responseData.load).to.be.a('number');",
+                  "//     pm.expect(responseData._id).to.be.a('string').that.is.not.empty;",
+                  "//     pm.expect(responseData.createdAt).to.be.a('string').that.is.not.empty;",
+                  "//     pm.expect(responseData.updatedAt).to.be.a('string').that.is.not.empty;",
+                  "//     pm.expect(responseData.__v).to.be.a('number');",
+                  "// });",
+                  "",
+                  "",
+                  "// pm.test(\"Title is a non-negative integer\", function () {",
+                  "//     const responseData = pm.response.json();",
+                  "    ",
+                  "//     pm.expect(responseData).to.be.an('object');",
+                  "//     pm.expect(responseData.title).to.be.a('number').and.to.be.at.least(0);",
+                  "// });",
+                  "",
+                  "",
+                  "pm.test(\"CreatedAt and UpdatedAt are in valid date format\", function () {",
+                  "    const responseData = pm.response.json();",
+                  "    ",
+                  "    pm.expect(responseData).to.be.an('object');",
+                  "    pm.expect(new Date(responseData.createdAt).getTime()).to.not.be.NaN;",
+                  "    pm.expect(new Date(responseData.updatedAt).getTime()).to.not.be.NaN;",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Get Property (ID) from the response\", function () {",
+                  "",
+                  "    const json = pm.response.json();",
+                  "    pm.environment.set(\"id\", json._id);",
+                  "",
+                  "",
+                  "",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en-US,en;q=0.9"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTAyZjg5YjA1MmYzY2YyYWJjZGE2NjIiLCJpYXQiOjE3Nzg1Nzk3OTAsImV4cCI6MTc3ODgzODk5MH0.TbsqjGp10BomeSSWcva8nDpjfjN0a_7t_QzzCoDrcYs"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000"
+              },
+              {
+                "key": "Referer",
+                "value": "http://localhost:3000/"
+              },
+              {
+                "key": "Sec-Fetch-Dest",
+                "value": "empty"
+              },
+              {
+                "key": "Sec-Fetch-Mode",
+                "value": "cors"
+              },
+              {
+                "key": "Sec-Fetch-Site",
+                "value": "same-origin"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"macOS\""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"45\",\"load\":\"23\",\"reps\":\"23\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/workouts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "workouts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete_workout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// pm.test(\"Response status code is 400\", function () {",
+                  "//     pm.expect(pm.response.code).to.equal(400);",
+                  "// });",
+                  "",
+                  "",
+                  "pm.test(\"Response time is less than 200ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(200);",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Response should contain an error message\", function () {",
+                  "    const responseData = pm.response.json();",
+                  "    ",
+                  "    pm.expect(responseData).to.be.an('object');",
+                  "    pm.expect(responseData.error).to.exist.and.to.be.a('string').that.is.not.empty;",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Response schema is valid and matches the expected structure\", function () {",
+                  "    const responseData = pm.response.json();",
+                  "    ",
+                  "    pm.expect(responseData).to.be.an('object');",
+                  "    pm.expect(responseData).to.have.property('error').that.is.a('string');",
+                  "});",
+                  "",
+                  "",
+                  "pm.test(\"Error message must be a non-empty string\", function () {",
+                  "    const responseData = pm.response.json();",
+                  "    ",
+                  "    pm.expect(responseData).to.be.an('object');",
+                  "    pm.expect(responseData.error).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Error message should not be empty\");",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en-US,en;q=0.9"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTAyZjg5YjA1MmYzY2YyYWJjZGE2NjIiLCJpYXQiOjE3Nzg1Nzk3OTAsImV4cCI6MTc3ODgzODk5MH0.TbsqjGp10BomeSSWcva8nDpjfjN0a_7t_QzzCoDrcYs"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "Origin",
+                "value": "http://localhost:3000"
+              },
+              {
+                "key": "Referer",
+                "value": "http://localhost:3000/"
+              },
+              {
+                "key": "Sec-Fetch-Dest",
+                "value": "empty"
+              },
+              {
+                "key": "Sec-Fetch-Mode",
+                "value": "cors"
+              },
+              {
+                "key": "Sec-Fetch-Site",
+                "value": "same-origin"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"macOS\""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/workouts/{{id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "workouts",
+                "{{id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

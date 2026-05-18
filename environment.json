@@ -1,0 +1,34 @@
+{
+	"id": "c9631d8f-0e59-49dc-b8fe-50adedf33937",
+	"name": "Dev Environment",
+	"values": [
+		{
+			"key": "email",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "password",
+			"value": "",
+			"type": "any",
+			"enabled": false
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "id",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"color": null,
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2026-05-15T11:06:40.826Z",
+	"_postman_exported_using": "Postman/12.10.4"
+}
