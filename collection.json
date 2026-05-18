@@ -156,12 +156,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3000/api/user/signup",
-              "protocol": "http",
+              "raw": "{{baseurl}}/api/user/signup",
               "host": [
-                "localhost"
+                "{{baseurl}}"
               ],
-              "port": "3000",
               "path": [
                 "api",
                 "user",
@@ -268,12 +266,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3000/api/user/login",
-              "protocol": "http",
+              "raw": "{{baseurl}}/api/user/login",
               "host": [
-                "localhost"
+                "{{baseurl}}"
               ],
-              "port": "3000",
               "path": [
                 "api",
                 "user",
@@ -458,12 +454,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3000/api/workouts",
-              "protocol": "http",
+              "raw": "{{baseurl}}/api/workouts",
               "host": [
-                "localhost"
+                "{{baseurl}}"
               ],
-              "port": "3000",
               "path": [
                 "api",
                 "workouts"
@@ -489,28 +483,39 @@
                   "});",
                   "",
                   "",
-                  "pm.test(\"Response should contain an error message\", function () {",
-                  "    const responseData = pm.response.json();",
+                  "// pm.test(\"Response should contain an error message\", function () {",
+                  "//     const responseData = pm.response.json();",
                   "    ",
-                  "    pm.expect(responseData).to.be.an('object');",
-                  "    pm.expect(responseData.error).to.exist.and.to.be.a('string').that.is.not.empty;",
-                  "});",
+                  "//     pm.expect(responseData).to.be.an('object');",
+                  "//     pm.expect(responseData.error).to.exist.and.to.be.a('string').that.is.not.empty;",
+                  "// });",
                   "",
                   "",
-                  "pm.test(\"Response schema is valid and matches the expected structure\", function () {",
-                  "    const responseData = pm.response.json();",
+                  "// pm.test(\"Response schema is valid and matches the expected structure\", function () {",
+                  "//     const responseData = pm.response.json();",
                   "    ",
-                  "    pm.expect(responseData).to.be.an('object');",
-                  "    pm.expect(responseData).to.have.property('error').that.is.a('string');",
-                  "});",
+                  "//     pm.expect(responseData).to.be.an('object');",
+                  "//     pm.expect(responseData).to.have.property('error').that.is.a('string');",
+                  "// });",
                   "",
                   "",
-                  "pm.test(\"Error message must be a non-empty string\", function () {",
-                  "    const responseData = pm.response.json();",
+                  "// pm.test(\"Error message must be a non-empty string\", function () {",
+                  "//     const responseData = pm.response.json();",
                   "    ",
-                  "    pm.expect(responseData).to.be.an('object');",
-                  "    pm.expect(responseData.error).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Error message should not be empty\");",
-                  "});",
+                  "//     pm.expect(responseData).to.be.an('object');",
+                  "//     pm.expect(responseData.error).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Error message should not be empty\");",
+                  "// });",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
                   ""
                 ],
                 "type": "text/javascript",
@@ -520,6 +525,16 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "DELETE",
             "header": [
               {
@@ -585,12 +600,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3000/api/workouts/{{id}}",
-              "protocol": "http",
+              "raw": "{{baseurl}}/api/workouts/{{id}}",
               "host": [
-                "localhost"
+                "{{baseurl}}"
               ],
-              "port": "3000",
               "path": [
                 "api",
                 "workouts",

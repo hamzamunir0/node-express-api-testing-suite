@@ -25,10 +25,22 @@
 			"value": "",
 			"type": "any",
 			"enabled": true
+		},
+		{
+			"key": "password",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "baseurl",
+			"value": "",
+			"type": "default",
+			"enabled": true
 		}
 	],
 	"color": null,
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2026-05-15T11:06:40.826Z",
-	"_postman_exported_using": "Postman/12.10.4"
+	"_postman_exported_at": "2026-05-18T09:58:49.964Z",
+	"_postman_exported_using": "Postman/12.11.1"
 }
