@@ -34,7 +34,7 @@
 		},
 		{
 			"key": "baseurl",
-			"value": "",
+			"value": "http://localhost:4000",
 			"type": "default",
 			"enabled": true
 		}
